@@ -1,0 +1,22 @@
+{
+  "name": "@todo/design",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "yarn build --watch"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "styled-components": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.21",
+    "@types/react": "^17.0.33",
+    "@types/react-dom": "^17.0.10",
+    "@types/styled-components": "^5.1.24",
+    "rollup-plugin-typescript2": "^0.31.2",
+    "typescript": "^4.5.4"
+  }
+}
