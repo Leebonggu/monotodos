@@ -15,7 +15,7 @@
     ]
   },
   "scripts": {
-    "bootstrap": "lerna exec yarn",
+    "install:all": "yarn lerna bootstrap",
     "build": "yarn lerna run build",
     "dev": "yarn lerna run dev"
   }
