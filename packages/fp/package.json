@@ -1,0 +1,11 @@
+{
+  "name": "@todo/fp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "yarn build --watch"
+  }
+}
