@@ -9,7 +9,17 @@ export default {
     format: 'esm',
     sourcemap: true,
   },
-  plugins: [ts()],
+  plugins: [
+    ts({
+      tsconfigOverride: {
+        exclude: [
+          'src/stories',
+          'src/**/*.stories.@(js|jsx|ts|tsx)',
+          'src/**/*.stories.mdx'
+        ],
+      }
+    },
+  )],
   preserveModules: true,
   external: ['react']
 }
