@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import useInput from './hooks/useInput';
-import { Todo } from './types';
+import { Status, Todo } from './types';
 
 import { BasicButton, BasicInput } from '@todo/design';
 import { map, filter } from '@todo/fp';
@@ -8,11 +8,10 @@ import TodoList from './components/TodoList';
 
 function App() {
   const idx = useRef(0);
-  const filterList= ['total', 'completed', 'notyet'] as const;
+  const filterList = ['total', 'completed', 'notyet'];
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [filteredTodos, setFilterdTodos] = useState<Todo[]>([]);
   const [text, handleText, setText] = useInput('');
-  const [status, setState] = useState('total')
+  const [status, setStatus] = useState<Status>('total')
 
   const addTodo = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -38,22 +37,9 @@ function App() {
     setTodos(toggledTodos);
   };
 
-  // const onChangeFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   switch(e.target.value) {
-  //     case 'completed':
-  //       setFilterdTodos(filter((todo: any) => todo.completed, todos));
-  //       break;
-  //     case 'notyet':
-  //       setFilterdTodos(filter((todo: any) => !todo.completed, todos));
-  //       break;
-  //     default:
-  //       setFilterdTodos([]);
-  //       break;
-  //   }
-  //   setState(e.target.value);
-  // }
-
-  console.log(filteredTodos)
+  const onChangeFilter = (e: React.ChangeEvent<HTMLInputElement> ) => {
+    setStatus(e.target.value as Status);
+  }
 
   return (
     <div style={{
@@ -79,7 +65,7 @@ function App() {
         >
           <BasicInput value={text} onChange={handleText} />
           <BasicButton onClick={addTodo}>추가</BasicButton>
-            {/* <div onChange={onChangeFilter}>
+            <div onChange={onChangeFilter}>
               {map(
                 (f) => (
                   <React.Fragment key={f}>
@@ -88,9 +74,9 @@ function App() {
                 ),
                 filterList,
               )}
-            </div> */}
+            </div>
         </form>
-        {<TodoList list={status === 'total' ? todos : filteredTodos} toggle={toggleComplete}/>}
+        {<TodoList list={todos} toggle={toggleComplete} status={status} />}
       </div>
     </div>
   )
