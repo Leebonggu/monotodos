@@ -5,9 +5,11 @@
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prisma:studio": "npx prisma studio"
   },
   "dependencies": {
+    "@prisma/client": "^3.10.0",
     "axios": "^0.26.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -18,6 +20,7 @@
     "@types/react-dom": "^17.0.10",
     "@vitejs/plugin-react": "^1.0.7",
     "miragejs": "^0.1.43",
+    "prisma": "^3.10.0",
     "typescript": "^4.5.4",
     "vite": "^2.8.0"
   }

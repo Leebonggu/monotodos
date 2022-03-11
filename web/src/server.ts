@@ -1,5 +1,6 @@
 import { createServer, Model, Factory } from "miragejs";
-import { Todo } from './types';
+import routes from './miragejs/routes';
+import { Todo } from '@prisma/client'
 
 export function makeServer({ environment = 'mock' }) {
   const server = createServer({
@@ -29,10 +30,7 @@ export function makeServer({ environment = 'mock' }) {
     models: {
       todos: Model.extend<Partial<Todo>>({}),
     },
-    routes() {
-      this.namespace = "api";
-      this.get('todos');
-    },
+    routes,
   });
 
   return server;

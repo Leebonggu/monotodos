@@ -1,0 +1,18 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:../src/miragejs/db/dev.db"
+}
+
+model Todo {
+  idx Int @id @default(autoincrement())
+  text String
+  createdAt String?
+  completed Boolean @default(false)
+}
