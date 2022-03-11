@@ -2,5 +2,9 @@
   "name": "@todo/validator",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "yarn build --watch"
+  }
 }
