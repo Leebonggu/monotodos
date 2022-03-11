@@ -1,20 +1,26 @@
-import React, { useRef, useState } from 'react';
-import useInput from './hooks/useInput';
+import React, { useEffect, useRef, useState } from 'react';
 import { Status, Todo } from './types';
+import useSWR from 'swr';
 
 import { BasicButton, BasicInput } from '@todo/design';
-import { map, filter } from '@todo/fp';
+import { map } from '@todo/fp';
+import { isGteMinLength } from '@todo/validator';
+
+import useInput from './hooks/useInput';
 import TodoList from './components/TodoList';
+import { fetcher } from './fetcher';
 
 function App() {
   const idx = useRef(0);
   const filterList = ['total', 'completed', 'notyet'];
   const [todos, setTodos] = useState<Todo[]>([]);
   const [text, handleText, setText] = useInput('');
-  const [status, setStatus] = useState<Status>('total')
+  const [status, setStatus] = useState<Status>('total');
+
+  const { data, error } = useSWR<Todo[]>('/api/todos', fetcher);
 
   const addTodo = (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!text) return;
     setTodos([{
       idx: idx.current,
@@ -26,7 +32,7 @@ function App() {
     setText('');
   };
 
-  const toggleComplete = (idx: number, iter: Todo[]) => {
+  const toggleComplete = (idx: number) => {
     const toggledTodos = map(
       (todo) => ({
         ...todo,
@@ -64,7 +70,7 @@ function App() {
           }}
         >
           <BasicInput value={text} onChange={handleText} />
-          <BasicButton onClick={addTodo}>추가</BasicButton>
+          <BasicButton onClick={addTodo} disabled={!isGteMinLength(1)(text)}>추가</BasicButton>
             <div onChange={onChangeFilter}>
               {map(
                 (f) => (
@@ -79,7 +85,7 @@ function App() {
         {<TodoList list={todos} toggle={toggleComplete} status={status} />}
       </div>
     </div>
-  )
+  );
 }
 
 export default App
